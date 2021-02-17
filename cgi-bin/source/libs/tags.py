@@ -17,6 +17,13 @@ def body(inside,classes="",id="",styles=""):
 def br(repeat=1):
   return "<br>"*repeat
 
+def button(inside,type="",onClick="",classes="",id="",styles=""):
+  return(
+    "<button class='"+classes+"' id='"+id+"' style='"+styles+"' onClick='"+onClick+"' >"+
+    inside+
+    "</button>"
+  )
+
 def div(inside,classes="",id="",styles=""):
   return(
     "<div class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
@@ -27,9 +34,9 @@ def div(inside,classes="",id="",styles=""):
 def enc_print(string='', encoding='utf8'):
   sys.stdout.buffer.write(string.encode(encoding) + b'\n')
 
-def form(inside,classes="",id="",styles=""):
+def form(inside,action="",method="",classes="",id="",styles=""):
   return(
-    "<form class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
+    "<form action='"+action+"' method='"+method+"' class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
     inside+
     "</form>"
   )
@@ -69,4 +76,11 @@ def p(inside,classes="",id="",styles=""):
     "<p class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
     inside+
     "</p>"
+  )
+
+def script(inside):
+  return(
+    "<script>"+
+    inside+
+    "</script>"
   )
