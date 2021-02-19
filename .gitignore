@@ -1,1 +1,9 @@
+#cache files
 *.pyc
+
+#temp error reports
+tmp*.html
+
+#database files
+banco.sqlite
+sqlite_schema.sql
