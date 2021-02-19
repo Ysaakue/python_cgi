@@ -1,46 +1,86 @@
 #! /usr/bin/env python3
 import cgitb, cgi
-from libs.tags import *
+from libs import tags
 
 cgitb.enable(display=0, logdir="./")
 
-DISPLAY_FLEX_CENTER = "display: flex;align-items: center;justify-content: center;flex-direction: column;"
+DISPLAY_FLEX_CENTER_COLUMN = "display: flex;align-items: center;justify-content: center;flex-direction: column;"
 
-enc_print(
-  init_html(
-    inside= head(
+tags.enc_print(
+  tags.init_html(
+    inside= tags.head(
       inside="<meta http-equiv='X-UA-Compatible' content='IE=edge'>"+
+      "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>"+
       "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"+
       "<!-- HTML 4 -->"+
       "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>"+
       "<!-- HTML5 -->"+
       "<meta charset='UTF-8'/>",
-      title="Index"
+      title="Login"
     ) +
-    body(
-      inside=div(
-        inside= form(
-          input_tag(
+    tags.body(
+      inside= tags.div(
+        inside= tags.form(
+          tags.input_tag(
             label=True,
             label_text="Email: ",
-            placeholder="Digite seu email"
+            placeholder="Digite seu email",
+            id= "email"
           )+
-          br(2)+
-          input_tag(
+          tags.br(2)+
+          tags.input_tag(
             label=True,
             label_text="Senha: ",
             placeholder="Digite sua senha",
-            type="password"
-          )
+            type="password",
+            id="password"
+          )+
+          tags.button(
+            inside="Cadastro",
+            type="submit",
+            styles="margin-top:17px;"
+          ),
+          id="form",
+          method= "post",
+          styles= DISPLAY_FLEX_CENTER_COLUMN
         )+
-        p(
+        tags.p(
           "Ainda não cadastrado?"+
-          a(
+          tags.a(
             text="Realizar cadastro",
             href="sign_up.py"
           )
         ),
-        styles= DISPLAY_FLEX_CENTER + "min-height: 100%;"
+        styles= DISPLAY_FLEX_CENTER_COLUMN + "min-height: 100%;"
+      )+
+      tags.script(
+        inside="$(document).ready(function(){"+
+          "$('#form').submit(function(e){"+
+            "e.preventDefault();"+
+            "var email = $('#email').val();"+
+            "var password= $('#password').val();"+
+            "$.ajax({"+
+              "type: 'POST',"+
+              "url: 'controllers/users_controller.py',"+
+              """data: {
+                action: "sign_in",
+                email:email,
+                password:password,
+              },
+              """+
+              """success:function(res){
+                  if(res['status'] == 'success'){
+                    window.location.href = "./home.py";
+                  }else if(res['status'] == 'error'){
+                    alert('Ocorreu um erro durante seu login: '+res['message']);
+                  } else {
+                    alert('Ocorreu um erro imprevisto.')
+                  }
+                },"""+
+              "error:function(xhr,errmsg,err){ alert(xhr.status + ': ' + xhr.responseText);}"+
+            "});"+
+          "});"+
+        "});"
       )
     )
   )

@@ -55,6 +55,9 @@ class User():
   def getEmail(self):
     return self.__email
 
+  def getPassword(self):
+    return self.__password
+
   def getAttributes(self):
     return {
       "name": self.__name,
@@ -90,3 +93,25 @@ class User():
       return user
     else:
       return User()
+
+  @staticmethod
+  def login(email="",password=""):
+    conexao = sqlite3.connect("./banco.sqlite")
+    c = conexao.cursor()
+    c.execute("select * from users where email = '{}' and password = '{}';".format(email,password))
+    conexao.commit()
+    for row in c:
+      user = User(
+        id= row[0],
+        name= row[1],
+        birth_date= row[2],
+        weight= row[3],
+        height= row[4],
+        email= row[5],
+        password= row[6]
+      )
+    c.close()
+    if 'user' in locals():
+      return user
+    else:
+      return None
