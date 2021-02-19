@@ -64,11 +64,25 @@ def init_html(inside,classes="",id="",styles=""):
     "</html>"
   )
 
-def input_tag(value="",label=False,label_text="",type="text",label_classes="",label_id="",label_styles="",classes="",id="",styles="",placeholder=""):
+def input_tag(value="",div_margin=0,div_width="",label=False,label_text="",type="text",label_classes="",label_id="",label_styles="",classes="",id="",styles="",placeholder=""):
   string = ""
   if label:
-    string += "<label for='"+id+"' class='"+label_classes+"' id='"+label_id+"' style='"+label_styles+"'>"+label_text+"</label>"
-  string += "<input type='"+type+"' id='"+id+"' name='"+id+"' value='"+value+"' placeholder='"+placeholder+"'>"
+    string += "<div style='margin: "+str(div_margin)+"px; width: "+div_width+";'><label for='"+id+"' class='"+label_classes+"' id='"+label_id+"' style='"+label_styles+"'>"+label_text+"</label><br>"
+  string += "<input type='"+type+"' id='"+id+"' name='"+id+"' value='"+value+"' placeholder='"+placeholder+"' style='"+styles+"'>"
+  if label:
+    string += "</div>"
+  return string
+
+def select(value="",options=[],div_margin=0,label=False,label_text="",type="text",label_classes="",label_id="",label_styles="",classes="",id="",styles="",placeholder=""):
+  string = ""
+  if label:
+    string += "<div style='margin: "+str(div_margin)+"px;'><label for='"+id+"' class='"+label_classes+"' id='"+label_id+"' style='"+label_styles+"'>"+label_text+"</label><br>"
+  string += "<select type='"+type+"' id='"+id+"' name='"+id+"' value='"+value+"' placeholder='"+placeholder+"'>"
+  for option in options:
+    string += "<option value='"+option.lower()+"'>"+option+"</option>"
+  string += "<select>"
+  if label:
+    string += "</div>"
   return string
 
 def p(inside,classes="",id="",styles=""):
