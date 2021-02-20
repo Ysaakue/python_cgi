@@ -115,3 +115,35 @@ class User():
       return user
     else:
       return None
+
+  @staticmethod
+  def all():
+    conexao = sqlite3.connect("./banco.sqlite")
+    c = conexao.cursor()
+    c.execute("select * from users;")
+    conexao.commit()
+    users = []
+    for row in c:
+      users << User(
+        id= row[0],
+        name= row[1],
+        birth_date= row[2],
+        weight= row[3],
+        height= row[4],
+        email= row[5],
+        password= row[6]
+      )
+    c.close()
+    return users
+
+  @staticmethod
+  def allToTable():
+    conexao = sqlite3.connect("./banco.sqlite")
+    c = conexao.cursor()
+    c.execute("select * from users;")
+    conexao.commit()
+    users = [['id','nome','data de nascimento','peso','altura','email']]
+    for row in c:
+      users.append([row[0], row[1], row[2], row[3], row[4], row[5]])
+    c.close()
+    return users

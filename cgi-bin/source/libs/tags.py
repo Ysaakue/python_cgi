@@ -41,19 +41,19 @@ def form(inside,action="",method="",classes="",id="",styles=""):
     "</form>"
   )
 
+def h1(inside,classes="",id="",styles=""):
+  return(
+    "<h1 class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
+    inside+
+    "</h1>"
+  )
+
 def head(inside,title=""):
   return(
     "<head>"+
     "<title>"+title+"</title>"+
     inside +
     "</head>"
-  )
-
-def h1(inside,classes="",id="",styles=""):
-  return(
-    "<h1 class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
-    inside+
-    "</h1>"
   )
 
 def init_html(inside,classes="",id="",styles=""):
@@ -73,11 +73,18 @@ def input_tag(value="",div_margin=0,div_width="",label=False,label_text="",type=
     string += "</div>"
   return string
 
-def span(inside,classes="",id="",styles=""):
+def p(inside,classes="",id="",styles=""):
   return(
-    "<span class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
+    "<p class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
     inside+
-    "</span>"
+    "</p>"
+  )
+
+def script(inside):
+  return(
+    "<script>"+
+    inside+
+    "</script>"
   )
 
 def select(value="",options=[],div_margin=0,label=False,label_text="",type="text",label_classes="",label_id="",label_styles="",classes="",id="",styles="",placeholder=""):
@@ -92,16 +99,28 @@ def select(value="",options=[],div_margin=0,label=False,label_text="",type="text
     string += "</div>"
   return string
 
-def p(inside,classes="",id="",styles=""):
+def span(inside,classes="",id="",styles=""):
   return(
-    "<p class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
+    "<span class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
     inside+
-    "</p>"
+    "</span>"
   )
 
-def script(inside):
-  return(
-    "<script>"+
-    inside+
-    "</script>"
-  )
+def table(header=False,content=[],classes="",id="",styles=""):
+  string = "<table class='"+classes+"' id='"+id+"' style='"+styles+"'>"
+  for i in range(len(content)):
+    string += "<tr>"
+    for j in content[i]:
+      if i == 0 and header:
+        string += "<th>"
+      else:
+        string += "<td>"
+      string += str(j)
+      if i == 0 and header:
+        string += "</th>"
+      else:
+        string += "</td>"
+    string += "</tr>"
+
+  string += "</table>"
+  return string
