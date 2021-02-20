@@ -73,6 +73,13 @@ def input_tag(value="",div_margin=0,div_width="",label=False,label_text="",type=
     string += "</div>"
   return string
 
+def span(inside,classes="",id="",styles=""):
+  return(
+    "<span class='"+classes+"' id='"+id+"' style='"+styles+"'>"+
+    inside+
+    "</span>"
+  )
+
 def select(value="",options=[],div_margin=0,label=False,label_text="",type="text",label_classes="",label_id="",label_styles="",classes="",id="",styles="",placeholder=""):
   string = ""
   if label:

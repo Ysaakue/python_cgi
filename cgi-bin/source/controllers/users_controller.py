@@ -22,7 +22,7 @@ if action == "sign_up":
   if User.find_by(options={"email": user.getEmail()}).getEmail() == user.getEmail():
     dic["status"] = "error"
     dic["message"] = "Email já cadastrado."
-  elif(user.getPassword != confirm_password):
+  elif(user.getPassword() != confirm_password):
     dic["status"] = "error"
     dic["message"] = "As senhas não são iguais."
   else:
