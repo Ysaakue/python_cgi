@@ -41,6 +41,9 @@ elif action == "sign_in":
     dic["status"] = "error"
     dic["message"] = "Email ou senha incorretos"
     dic["user"] = user.getAttributes()
+elif action == "delete":
+  User.destroy_all()
+  dic["status"] = "success"
 else:
   dic["status"] = "error"
   dic["message"] = "A ação que você deseja realizar é inválida."

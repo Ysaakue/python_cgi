@@ -147,3 +147,11 @@ class User():
       users.append([row[0], row[1], row[2], row[3], row[4], row[5]])
     c.close()
     return users
+
+  @staticmethod
+  def destroy_all():
+    conexao = sqlite3.connect("./banco.sqlite")
+    c = conexao.cursor()
+    c.execute("delete from users;")
+    conexao.commit()
+    c.close()

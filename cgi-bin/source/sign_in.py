@@ -36,7 +36,7 @@ tags.enc_print(
             id="password"
           )+
           tags.button(
-            inside="Cadastro",
+            inside="Entrar",
             type="submit",
             styles="margin-top:17px;"
           ),
@@ -54,33 +54,34 @@ tags.enc_print(
         styles= DISPLAY_FLEX_CENTER_COLUMN + "min-height: 100%;"
       )+
       tags.script(
-        inside="$(document).ready(function(){"+
-          "$('#form').submit(function(e){"+
-            "e.preventDefault();"+
-            "var email = $('#email').val();"+
-            "var password= $('#password').val();"+
-            "$.ajax({"+
-              "type: 'POST',"+
-              "url: 'controllers/users_controller.py',"+
-              """data: {
-                action: "sign_in",
+        inside=
+        """
+        $(document).ready(function(){
+          $('#form').submit(function(e){
+            e.preventDefault();
+            var email = $('#email').val();
+            var password= $('#password').val();
+            $.ajax({
+              type: 'POST',
+              url: 'controllers/users_controller.py',
+              data: {
+                action: 'sign_in',
                 email:email,
                 password:password,
               },
-              """+
-              """success:function(res){
+              success:function(res){
                   if(res['status'] == 'success'){
-                    window.location.href = "./home.py";
+                    window.location.href = './home.py';
                   }else if(res['status'] == 'error'){
                     alert('Ocorreu um erro durante seu login: '+res['message']);
                   } else {
                     alert('Ocorreu um erro imprevisto.')
                   }
-                },"""+
-              "error:function(xhr,errmsg,err){ alert(xhr.status + ': ' + xhr.responseText);}"+
-            "});"+
-          "});"+
-        "});"
+                },
+              error:function(xhr,errmsg,err){ alert(xhr.status + ': ' + xhr.responseText);}
+            });
+          });
+        });"""
       )
     )
   )
